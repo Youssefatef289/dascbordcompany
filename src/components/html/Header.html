@@ -1,0 +1,23 @@
+<!-- Header Component -->
+<div class="flex justify-between items-center pb-4 border-b border-gray-200">
+    <h1 id="page-title" class="text-3xl font-bold text-gray-800">لوحة الموظف</h1>
+    <div class="flex items-center space-x-2 space-x-reverse text-gray-600">
+        <button id="global-refresh-btn" class="px-3 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-sm">تحديث</button>
+        <button id="global-clear-btn" class="px-3 py-2 rounded-full bg-red-100 hover:bg-red-200 text-sm text-red-700">تفريغ البيانات</button>
+        <button id="header-settings-btn" class="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center" title="الإعدادات"><i class="fas fa-gear"></i></button>
+        <button id="header-notifications-btn" class="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center relative" title="الإشعارات">
+            <i class="fas fa-bell"></i>
+            <span id="header-notifications-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full px-1 hidden">0</span>
+        </button>
+        <button id="task-panel-btn" class="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center" title="قائمة المهام"><i class="fas fa-list-check"></i></button>
+        <div class="relative">
+            <button id="header-options-btn" class="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center" title="خيارات"><i class="fas fa-ellipsis-vertical"></i></button>
+            <div id="header-options-menu" class="absolute left-0 mt-2 w-48 bg-white card p-2 hidden z-50">
+                <a href="#" class="block px-3 py-2 rounded hover:bg-gray-50">حول النظام</a>
+                <button id="logout-btn" class="block w-full text-right px-3 py-2 rounded hover:bg-gray-50">تسجيل خروج</button>
+            </div>
+        </div>
+        <span id="welcome-message" class="text-gray-600 text-lg ml-2">مرحباً، </span>
+        <span id="user-name" class="text-gray-800 font-semibold text-lg"></span>
+    </div>
+</div>

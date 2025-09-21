@@ -1,0 +1,23 @@
+<!-- Login Page Component -->
+<div id="login-page" class="flex items-center justify-center h-screen">
+    <div class="card p-8 w-full max-w-md">
+        <div class="flex flex-col items-center mb-6">
+            <img src="images/logo-removebg-preview.png" alt="Company Logo" class="rounded-full mb-4">
+            <h2 class="text-2xl font-bold text-gray-800">تسجيل الدخول</h2>
+        </div>
+        <form id="login-form" class="space-y-4">
+            <div>
+                <input type="text" id="username" placeholder="اسم المستخدم" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+            </div>
+            <div>
+                <input type="password" id="password" placeholder="كلمة المرور" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white font-bold py-3 rounded-full hover:bg-blue-700 transition">
+                تسجيل الدخول
+            </button>
+        </form>
+        <div id="login-error-message" class="text-red-500 text-center mt-4 hidden">
+            اسم المستخدم أو كلمة المرور غير صحيحة.
+        </div>
+    </div>
+</div>

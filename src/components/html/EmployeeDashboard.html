@@ -1,0 +1,248 @@
+<!-- Employee Dashboard Component -->
+<div id="employee-dashboard" class="space-y-8">
+    <!-- Quick Navigation -->
+    <div class="card p-4">
+        <div class="flex flex-wrap gap-2 text-sm">
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#basic-section">البيانات الأساسية</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#monthly-target-section">تفاصيل الهدف</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#performance-section">الأداء اليومي</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#attendance-section">الحضور والعمليات</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#calc-section">حاسبة التارجت</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#filters-section">الفلترة</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#daily-ops-stats-section">إحصائيات العمليات</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#daily7-section">الأداء 7 أيام</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#ops-section">تفاصيل الأنواع</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#recent-sales-section">آخر العمليات</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#tasks-section">مهامي</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#daily-tasks-section">مهام اليوم</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#employee-profile-section">الملف الشخصي</button>
+            <button class="px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" data-scroll="#alerts-section">التنبيهات</button>
+        </div>
+    </div>
+
+    <!-- Employee Basic Data Section -->
+    <div id="basic-section" class="card p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-user-circle text-2xl ml-2 text-blue-500"></i> البيانات الأساسية
+        </h2>
+        <div id="basic-data" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Data cards will be injected here by JS -->
+        </div>
+    </div>
+
+    <!-- Monthly Target Details Section -->
+    <div id="monthly-target-section" class="card p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-bullseye text-2xl ml-2 text-green-500"></i> تفاصيل الهدف الشهري
+        </h2>
+        <div id="target-details" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Target cards will be injected here by JS -->
+        </div>
+        <div class="mt-4">
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-gray-700 font-medium">تقدم الهدف</span>
+                <span id="target-progress-percentage" class="text-sm font-semibold text-gray-600">0%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full">
+                <div id="target-progress-bar" class="progress-bar bg-green-500" style="width: 0%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Daily/Weekly Performance and Loan/Attendance Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Daily Performance Section -->
+        <div id="performance-section" class="card p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                    <i class="fas fa-chart-line text-2xl ml-2 text-purple-500"></i> الأداء اليومي
+                </h2>
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <button id="refresh-performance-btn" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">
+                        <i class="fas fa-sync-alt ml-2"></i>تحديث
+                    </button>
+                    <button id="view-details-btn" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700">
+                        <i class="fas fa-eye ml-2"></i>تفاصيل الأداء
+                    </button>
+                </div>
+            </div>
+
+            <!-- Performance Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-100 text-sm">إجمالي العمليات</p>
+                            <p class="text-2xl font-bold" id="today-total-operations">0</p>
+                        </div>
+                        <i class="fas fa-tasks text-3xl text-blue-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-green-100 text-sm">إجمالي النقاط</p>
+                            <p class="text-2xl font-bold" id="today-total-points">0</p>
+                        </div>
+                        <i class="fas fa-star text-3xl text-green-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-purple-100 text-sm">الأنظمة المستخدمة</p>
+                            <p class="text-2xl font-bold" id="today-systems-used">0</p>
+                        </div>
+                        <i class="fas fa-cogs text-3xl text-purple-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-orange-100 text-sm">متوسط العمليات</p>
+                            <p class="text-2xl font-bold" id="today-avg-operations">0</p>
+                        </div>
+                        <i class="fas fa-chart-bar text-3xl text-orange-200"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Details -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Systems Breakdown -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-chart-pie text-lg ml-2 text-blue-600"></i> تفصيل الأنظمة
+                    </h3>
+                    <div id="systems-breakdown" class="space-y-3">
+                        <!-- Systems breakdown will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Time Breakdown -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-clock text-lg ml-2 text-green-600"></i> التوزيع الزمني
+                    </h3>
+                    <div id="time-breakdown" class="space-y-3">
+                        <!-- Time breakdown will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Performance Chart -->
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-chart-line text-lg ml-2 text-purple-600"></i> تطور الأداء اليومي
+                </h3>
+                <div id="daily-performance-chart" class="bg-gray-50 p-4 rounded-lg">
+                    <!-- Performance chart will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Recent Operations -->
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-list text-lg ml-2 text-gray-600"></i> العمليات الأخيرة اليوم
+                </h3>
+                <div id="today-recent-operations" class="space-y-3">
+                    <!-- Recent operations will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance & Loans Section -->
+        <div id="attendance-section" class="card p-6 space-y-6">
+            <!-- Attendance -->
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-clock text-2xl ml-2 text-blue-500"></i> الحضور والانصراف
+                </h2>
+                <div class="flex items-center space-x-4">
+                    <button id="record-attendance-btn" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 transition">
+                        تسجيل الحضور
+                    </button>
+                    <span id="attendance-status" class="text-sm text-gray-600"></span>
+                </div>
+                <div class="flex items-center space-x-4 mt-3">
+                    <button id="record-checkout-btn" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 transition">
+                        تسجيل الانصراف
+                    </button>
+                    <span id="checkout-status" class="text-sm text-gray-600"></span>
+                </div>
+            </div>
+
+            <!-- Loan Requests -->
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-money-bill-wave text-2xl ml-2 text-orange-500"></i> طلب سلفة
+                </h2>
+                <form id="loan-request-form" class="space-y-4">
+                    <div class="relative">
+                        <input type="number" id="area-loan-amount" placeholder="المبلغ" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none" required>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="area-loan-reason" placeholder="السبب" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none" required>
+                    </div>
+                    <button type="submit" class="bg-orange-500 text-white font-bold py-2 px-4 rounded-full hover:bg-orange-700 transition">
+                        تقديم الطلب
+                    </button>
+                </form>
+                <div id="loan-status" class="mt-4 p-4 bg-orange-100 text-orange-700 rounded-md hidden">
+                    <!-- Loan status message will be here -->
+                </div>
+            </div>
+
+            <!-- Record Sale -->
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-hand-holding-dollar text-2xl ml-2 text-emerald-600"></i> تسجيل العمليات اليومية
+                </h2>
+                <form id="record-sale-form" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="flex flex-col">
+                            <label class="text-sm text-gray-600 mb-1">النظام</label>
+                            <select id="sale-system" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <option value="أورنج كاش">أورنج كاش</option>
+                                <option value="بايتاكس">بايتاكس</option>
+                                <option value="DCL">DCL</option>
+                                <option value="H4G">H4G</option>
+                                <option value="ديقنس">ديقنس</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-sm text-gray-600 mb-1">عدد العمليات</label>
+                            <input id="sale-ops" type="number" min="1" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="مثال: 10" required>
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-sm text-gray-600 mb-1">التاريخ</label>
+                            <input id="sale-date" type="date" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none" required>
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-sm text-gray-600 mb-1">الوقت (اختياري)</label>
+                            <input id="sale-time" type="time" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-sm text-gray-600 mb-1">ملاحظات (اختياري)</label>
+                        <textarea id="sale-notes" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none" rows="2" placeholder="أي ملاحظات إضافية..."></textarea>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-full hover:bg-emerald-700 transition">
+                            <i class="fas fa-save ml-2"></i>تسجيل العملية
+                        </button>
+                        <button type="button" id="clear-sale-form" class="bg-gray-500 text-white px-6 py-3 rounded-full hover:bg-gray-600 transition">
+                            <i class="fas fa-eraser ml-2"></i>مسح النموذج
+                        </button>
+                    </div>
+                </form>
+                <div id="sale-status" class="mt-4 p-4 rounded-lg hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional sections will be loaded here -->
+    <div id="additional-sections">
+        <!-- Additional sections will be dynamically loaded -->
+    </div>
+</div>

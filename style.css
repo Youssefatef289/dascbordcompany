@@ -1,55 +1,118 @@
-   body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #f3f4f6;
-        }
+/* Global Styles */
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f3f4f6;
+}
 
-        .card {
-            background-color: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s ease-in-out;
-        }
+.card {
+    background-color: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease-in-out;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+.card:hover {
+    transform: translateY(-5px);
+}
 
-        .progress-bar {
-            height: 10px;
-            border-radius: 9999px;
-        }
+.progress-bar {
+    height: 10px;
+    border-radius: 9999px;
+}
 
-        .hidden {
-            display: none !important;
-        }
+.hidden {
+    display: none !important;
+}
 
-        .task-bar {
-            height: 10px;
-            border-radius: 9999px;
-        }
+.task-bar {
+    height: 10px;
+    border-radius: 9999px;
+}
 
-        /* subtle animated gradient chips/badges */
-        .chip-gradient {
-            background: linear-gradient(90deg, rgba(99,102,241,0.08), rgba(16,185,129,0.08));
-        }
+img {
+    width: 200px;
+}
 
-        /* simple modal helpers */
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-        }
-        .modal {
-            position: relative;
-            margin-top: 5vh;
-            padding: 1.5rem;
-        }
+/* Utility Classes */
+.chip-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
 
-        .task-drawer {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 380px;
-            border-radius: 1rem 0 0 1rem;
-        }
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.task-drawer {
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.task-drawer.open {
+    transform: translateX(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        margin: 0.5rem;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.spinner {
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

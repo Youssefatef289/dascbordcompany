@@ -1,0 +1,388 @@
+<!-- Manager Dashboard Component -->
+<div id="manager-dashboard" class="space-y-8">
+    <!-- Manager Header -->
+    <div class="card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-semibold text-gray-800 flex items-center">
+                <i class="fas fa-user-tie text-3xl ml-3 text-blue-600"></i> لوحة مدير الفرع
+            </h2>
+            <div class="flex items-center space-x-2 space-x-reverse text-gray-500">
+                <button id="manager-settings-btn" class="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center" title="الإعدادات"><i class="fas fa-gear"></i></button>
+                <button id="manager-notifications-btn" class="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center relative" title="الإشعارات">
+                    <i class="fas fa-bell"></i>
+                    <span id="manager-notifications-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full px-1 hidden">0</span>
+                </button>
+                <button id="manager-tasks-btn" class="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center" title="المهام"><i class="fas fa-tasks"></i></button>
+                <button id="manager-reports-btn" class="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center" title="التقارير"><i class="fas fa-chart-bar"></i></button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-blue-100 text-sm">إجمالي الموظفين</p>
+                        <p class="text-2xl font-bold" id="kpi-employees">0</p>
+                    </div>
+                    <i class="fas fa-users text-3xl text-blue-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-green-100 text-sm">إجمالي العمليات</p>
+                        <p class="text-2xl font-bold" id="kpi-ops">0</p>
+                    </div>
+                    <i class="fas fa-tasks text-3xl text-green-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-purple-100 text-sm">معدل الإنجاز</p>
+                        <p class="text-2xl font-bold" id="kpi-completion">0%</p>
+                    </div>
+                    <i class="fas fa-chart-pie text-3xl text-purple-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-orange-100 text-sm">الهدف الشهري</p>
+                        <p class="text-2xl font-bold" id="kpi-target">0</p>
+                    </div>
+                    <i class="fas fa-bullseye text-3xl text-orange-200"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manager Actions -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Notifications and Alerts -->
+        <div class="space-y-6">
+            <div class="card p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                        <i class="fas fa-bell text-2xl ml-2 text-red-500"></i> الإشعارات والتنبيهات
+                    </h2>
+                    <button id="send-manager-notification-btn" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700">
+                        <i class="fas fa-plus ml-2"></i>إرسال إشعار
+                    </button>
+                </div>
+
+                <!-- Send Notification Form -->
+                <div id="send-manager-notification-form" class="hidden mb-6 p-4 bg-gray-50 rounded-lg">
+                    <form id="manager-notification-form" class="space-y-4">
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">إلى</label>
+                            <select id="manager-notification-recipient" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+                                <option value="all">جميع الموظفين</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">نوع الإشعار</label>
+                            <select id="manager-notification-type" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none">
+                                <option value="مهمة">مهمة جديدة</option>
+                                <option value="تذكير">تذكير مهم</option>
+                                <option value="تعميم">تعميم عام</option>
+                                <option value="تحذير">تحذير</option>
+                                <option value="أخرى">أخرى</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">الموضوع</label>
+                            <input type="text" id="manager-notification-subject" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none" placeholder="موضوع الإشعار" required>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">الرسالة</label>
+                            <textarea id="manager-notification-message" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none" rows="3" placeholder="اكتب رسالتك هنا..." required></textarea>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">المرفقات (اختياري)</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-red-400 transition-colors">
+                                <input type="file" id="manager-notification-attachments" class="hidden" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.txt">
+                                <button type="button" id="select-manager-attachments-btn" class="text-red-600 hover:text-red-800">
+                                    <i class="fas fa-paperclip text-2xl mb-2"></i>
+                                    <p class="text-sm">اضغط لاختيار الملفات</p>
+                                    <p class="text-xs text-gray-500">PDF, DOC, XLS, JPG, PNG, TXT</p>
+                                </button>
+                            </div>
+                            <div id="selected-manager-files-preview" class="mt-2 space-y-2"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-red-600 text-white font-bold py-2 px-6 rounded-full hover:bg-red-700">
+                                <i class="fas fa-paper-plane ml-2"></i>إرسال
+                            </button>
+                            <button type="button" id="cancel-manager-notification-btn" class="bg-gray-500 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-600">
+                                <i class="fas fa-times ml-2"></i>إلغاء
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div id="manager-alerts" class="space-y-3"></div>
+            </div>
+
+            <div class="card p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-clipboard-check text-2xl ml-2 text-amber-500"></i> الموافقات المعلقة
+                </h2>
+                <div id="manager-approvals" class="space-y-3"></div>
+            </div>
+        </div>
+
+        <!-- Employee Management -->
+        <div class="space-y-6">
+            <div class="card p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                        <i class="fas fa-user-plus text-2xl ml-2 text-green-500"></i> إدارة الموظفين
+                    </h2>
+                    <button id="add-employee-btn" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700">
+                        <i class="fas fa-plus ml-2"></i>إضافة موظف
+                    </button>
+                </div>
+
+                <!-- Add Employee Form -->
+                <div id="add-employee-form" class="hidden mb-6 p-4 bg-gray-50 rounded-lg">
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-sm text-gray-600 mb-1">اسم الموظف</label>
+                                <input type="text" id="employee-name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none" required>
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-600 mb-1">المنصب</label>
+                                <input type="text" id="employee-position" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none" required>
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-600 mb-1">البريد الإلكتروني</label>
+                                <input type="email" id="employee-email" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none" required>
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-600 mb-1">رقم الهاتف</label>
+                                <input type="tel" id="employee-phone" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none" required>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-green-600 text-white font-bold py-2 px-6 rounded-full hover:bg-green-700">
+                                <i class="fas fa-save ml-2"></i>حفظ
+                            </button>
+                            <button type="button" id="cancel-add-employee-btn" class="bg-gray-500 text-white font-bold py-2 px-6 rounded-full hover:bg-gray-600">
+                                <i class="fas fa-times ml-2"></i>إلغاء
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="employees-list" class="space-y-3">
+                    <!-- Employees will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Daily Tasks -->
+            <div class="card p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-tasks text-2xl ml-2 text-blue-500"></i> المهام اليومية
+                </h2>
+                <form id="manager-daily-task-form" class="space-y-4">
+                    <div>
+                        <label class="text-sm text-gray-600 mb-1">عنوان المهمة</label>
+                        <input type="text" id="daily-task-title" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">المسند إليه</label>
+                            <select id="daily-task-assignee" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="all">جميع الموظفين</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">نوع المهمة</label>
+                            <select id="daily-task-type" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="مهمة عادية">مهمة عادية</option>
+                                <option value="مهمة عاجلة">مهمة عاجلة</option>
+                                <option value="متابعة">متابعة</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">الأولوية</label>
+                            <select id="daily-task-priority" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="عادية">عادية</option>
+                                <option value="عالية">عالية</option>
+                                <option value="عاجلة">عاجلة</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full hover:bg-blue-700">
+                        <i class="fas fa-paper-plane ml-2"></i>إرسال المهمة
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Operations and Employee Details -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Operations Breakdown -->
+        <div class="card p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                    <i class="fas fa-list-ul text-2xl ml-2 text-indigo-500"></i> تفاصيل أنواع العمليات
+                </h2>
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <select id="manager-operations-employee-filter" class="p-2 border rounded-lg text-sm">
+                        <option value="all">جميع الموظفين</option>
+                    </select>
+                    <select id="manager-operations-period-filter" class="p-2 border rounded-lg text-sm">
+                        <option value="today">اليوم</option>
+                        <option value="week">هذا الأسبوع</option>
+                        <option value="month">هذا الشهر</option>
+                        <option value="all">الكل</option>
+                    </select>
+                </div>
+            </div>
+            <div id="manager-ops-breakdown" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </div>
+
+        <!-- Employee Selection and Details -->
+        <div class="card p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                    <i class="fas fa-users text-2xl ml-2 text-purple-600"></i> اختيار الموظف وعرض التفاصيل
+                </h2>
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <button id="refresh-employee-details-btn" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">
+                        <i class="fas fa-sync-alt ml-2"></i>تحديث
+                    </button>
+                    <button id="view-all-employees-btn" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700">
+                        <i class="fas fa-eye ml-2"></i>عرض الكل
+                    </button>
+                </div>
+            </div>
+
+            <!-- Employee Selection -->
+            <div class="mb-6">
+                <label class="text-sm text-gray-600 mb-2 block">اختر موظف لعرض تفاصيله:</label>
+                <select id="employee-selection" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                    <option value="">-- اختر موظف --</option>
+                </select>
+            </div>
+
+            <!-- Employee Details Card -->
+            <div id="employee-details-card" class="hidden mb-6">
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4 space-x-reverse">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold" id="selected-employee-name">اسم الموظف</h3>
+                                <p class="text-purple-100" id="selected-employee-position">المنصب</p>
+                                <p class="text-purple-200 text-sm" id="selected-employee-branch">الفرع</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-purple-100 text-sm">رقم الموظف</p>
+                            <p class="text-xl font-bold" id="selected-employee-id">#123</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Statistics -->
+            <div id="employee-statistics" class="hidden grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-green-100 text-sm">إجمالي العمليات</p>
+                            <p class="text-2xl font-bold" id="employee-total-operations">0</p>
+                        </div>
+                        <i class="fas fa-chart-bar text-3xl text-green-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-100 text-sm">إجمالي النقاط</p>
+                            <p class="text-2xl font-bold" id="employee-total-points">0</p>
+                        </div>
+                        <i class="fas fa-star text-3xl text-blue-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-orange-100 text-sm">متوسط العمليات</p>
+                            <p class="text-2xl font-bold" id="employee-avg-operations">0</p>
+                        </div>
+                        <i class="fas fa-chart-line text-3xl text-orange-200"></i>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-red-100 text-sm">الأنظمة المستخدمة</p>
+                            <p class="text-2xl font-bold" id="employee-systems-count">0</p>
+                        </div>
+                        <i class="fas fa-cogs text-3xl text-red-200"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Operations Table -->
+            <div id="employee-operations-table" class="hidden">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-table text-lg ml-2 text-gray-600"></i> عمليات الموظف
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-right text-gray-600">النظام</th>
+                                <th class="px-4 py-3 text-right text-gray-600">عدد العمليات</th>
+                                <th class="px-4 py-3 text-right text-gray-600">النقاط</th>
+                                <th class="px-4 py-3 text-right text-gray-600">التاريخ</th>
+                                <th class="px-4 py-3 text-right text-gray-600">الوقت</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employee-operations-table-body" class="divide-y divide-gray-200">
+                            <!-- Employee operations will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Operations Table -->
+    <div class="card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                <i class="fas fa-table text-2xl ml-2 text-green-500"></i> آخر العمليات المسجلة
+            </h2>
+            <button id="refresh-manager-operations-btn" class="bg-green-500 text-white px-3 py-1 rounded-full text-sm hover:bg-green-600">
+                <i class="fas fa-sync-alt ml-1"></i>تحديث
+            </button>
+        </div>
+        <div id="manager-recent-operations-table" class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-3 text-right text-gray-600">الموظف</th>
+                        <th class="px-4 py-3 text-right text-gray-600">النظام</th>
+                        <th class="px-4 py-3 text-right text-gray-600">عدد العمليات</th>
+                        <th class="px-4 py-3 text-right text-gray-600">النقاط</th>
+                        <th class="px-4 py-3 text-right text-gray-600">التاريخ</th>
+                        <th class="px-4 py-3 text-right text-gray-600">الوقت</th>
+                        <th class="px-4 py-3 text-right text-gray-600">الملاحظات</th>
+                    </tr>
+                </thead>
+                <tbody id="manager-operations-table-body" class="divide-y divide-gray-200">
+                    <!-- Operations will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

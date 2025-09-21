@@ -1,0 +1,196 @@
+<!-- Owner Dashboard Component -->
+<div id="owner-dashboard" class="space-y-8">
+    <!-- Global Header + KPIs -->
+    <div class="card p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="text-2xl font-bold text-gray-900">لوحة الإدارة العامة</div>
+                <div class="text-sm text-gray-500" id="owner-subtitle">رؤية شاملة لكل المناطق</div>
+            </div>
+            <div class="flex items-center space-x-2 space-x-reverse text-gray-600">
+                <button id="owner-export-excel" class="bg-green-600 text-white px-4 py-2 rounded-full"><i class="fas fa-file-excel ml-2"></i>Excel</button>
+                <button id="owner-export-pdf" class="bg-red-600 text-white px-4 py-2 rounded-full"><i class="fas fa-file-pdf ml-2"></i>PDF</button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">
+            <div class="card p-4"><div class="text-sm text-gray-500">إجمالي المناطق</div><div id="owner-kpi-regions" class="text-3xl font-extrabold text-gray-900">--</div></div>
+            <div class="card p-4"><div class="text-sm text-gray-500">إجمالي الفروع</div><div id="owner-kpi-branches" class="text-3xl font-extrabold text-gray-900">--</div></div>
+            <div class="card p-4"><div class="text-sm text-gray-500">إجمالي الموظفين</div><div id="owner-kpi-employees" class="text-3xl font-extrabold text-gray-900">--</div></div>
+            <div class="card p-4"><div class="text-sm text-gray-500">نسبة الإنجاز</div><div id="owner-kpi-completion" class="text-3xl font-extrabold text-gray-900">--%</div></div>
+            <div class="card p-4"><div class="text-sm text-gray-500">إجمالي الإيرادات</div><div id="owner-kpi-revenue" class="text-3xl font-extrabold text-gray-900">--</div></div>
+        </div>
+    </div>
+
+    <!-- Add Area Manager Section -->
+    <div class="card p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                <i class="fas fa-user-plus text-2xl ml-2 text-purple-600"></i> إدارة مدراء المناطق
+            </h2>
+            <div class="flex items-center space-x-2 space-x-reverse">
+                <button id="add-area-manager-btn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                    <i class="fas fa-plus ml-2"></i>إضافة مدير منطقة
+                </button>
+                <button id="refresh-area-managers-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-sync-alt ml-2"></i>تحديث
+                </button>
+            </div>
+        </div>
+
+        <!-- Add Area Manager Form -->
+        <div id="add-area-manager-form" class="hidden mb-6 p-6 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-user-plus text-xl ml-2 text-purple-600"></i> إضافة مدير منطقة جديد
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="text-sm text-gray-600 mb-2 block font-medium">اسم مدير المنطقة *</label>
+                    <input type="text" id="area-manager-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-colors" placeholder="أدخل اسم مدير المنطقة">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-600 mb-2 block font-medium">اسم المستخدم *</label>
+                    <input type="text" id="area-manager-username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-colors" placeholder="أدخل اسم المستخدم">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-600 mb-2 block font-medium">كلمة المرور *</label>
+                    <input type="password" id="area-manager-password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-colors" placeholder="أدخل كلمة المرور">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-600 mb-2 block font-medium">تأكيد كلمة المرور *</label>
+                    <input type="password" id="area-manager-confirm-password" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-colors" placeholder="أكد كلمة المرور">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-600 mb-2 block font-medium">البريد الإلكتروني *</label>
+                    <input type="email" id="area-manager-email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-colors" placeholder="أدخل البريد الإلكتروني">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-600 mb-2 block font-medium">رقم الهاتف *</label>
+                    <input type="text" id="area-manager-phone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-colors" placeholder="أدخل رقم الهاتف">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="text-sm text-gray-600 mb-2 block font-medium">المنطقة المسؤول عنها *</label>
+                    <input type="text" id="area-manager-region" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-colors" placeholder="أدخل المنطقة المسؤول عنها">
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 space-x-reverse mt-6">
+                <button id="save-area-manager-btn" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center">
+                    <i class="fas fa-save ml-2"></i>حفظ مدير المنطقة
+                </button>
+                <button id="cancel-area-manager-btn" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center">
+                    <i class="fas fa-times ml-2"></i>إلغاء
+                </button>
+            </div>
+        </div>
+
+        <!-- Area Managers List -->
+        <div id="area-managers-list" class="space-y-4">
+            <!-- Area managers will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+            <div>
+                <label class="text-sm text-gray-600 mb-1">المنطقة</label>
+                <select id="owner-filter-region" class="w-full p-3 border rounded-lg"><option value="all">كل المناطق</option></select>
+            </div>
+            <div>
+                <label class="text-sm text-gray-600 mb-1">الفترة</label>
+                <select id="owner-filter-period" class="w-full p-3 border rounded-lg"><option value="current">الشهر الحالي</option><option value="last">الشهر السابق</option></select>
+            </div>
+            <div class="md:text-left"><span class="text-xs text-gray-500">تصفية ومراجعة على مستوى الشركة</span></div>
+        </div>
+    </div>
+
+    <!-- Regions Performance -->
+    <div class="card p-6">
+        <div class="flex items-center justify-between mb-4"><h2 class="text-xl font-semibold text-gray-800">أداء المناطق</h2></div>
+        <div id="owner-regions-list" class="space-y-4"></div>
+    </div>
+
+    <!-- Leaderboards: Top vs Risk Regions -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="card p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-trophy text-2xl ml-2 text-yellow-500"></i> أفضل المناطق أداءً
+            </h2>
+            <div id="top-regions-list" class="space-y-3">
+                <!-- Top regions will be loaded here -->
+            </div>
+        </div>
+        <div class="card p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-exclamation-triangle text-2xl ml-2 text-red-500"></i> المناطق التي تحتاج متابعة
+            </h2>
+            <div id="risk-regions-list" class="space-y-3">
+                <!-- Risk regions will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Overview -->
+    <div class="card p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+            <i class="fas fa-chart-line text-2xl ml-2 text-green-600"></i> النظرة المالية العامة
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-green-100 text-sm">إجمالي الإيرادات</p>
+                        <p class="text-2xl font-bold" id="total-revenue">0</p>
+                    </div>
+                    <i class="fas fa-dollar-sign text-3xl text-green-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-blue-100 text-sm">إجمالي التكاليف</p>
+                        <p class="text-2xl font-bold" id="total-costs">0</p>
+                    </div>
+                    <i class="fas fa-calculator text-3xl text-blue-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-purple-100 text-sm">صافي الربح</p>
+                        <p class="text-2xl font-bold" id="net-profit">0</p>
+                    </div>
+                    <i class="fas fa-chart-pie text-3xl text-purple-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-orange-100 text-sm">معدل الربحية</p>
+                        <p class="text-2xl font-bold" id="profit-margin">0%</p>
+                    </div>
+                    <i class="fas fa-percentage text-3xl text-orange-200"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Alerts and Recommendations -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="card p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-bell text-2xl ml-2 text-red-500"></i> تنبيهات النظام
+            </h2>
+            <div id="system-alerts" class="space-y-3">
+                <!-- System alerts will be loaded here -->
+            </div>
+        </div>
+        <div class="card p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-lightbulb text-2xl ml-2 text-yellow-500"></i> التوصيات
+            </h2>
+            <div id="system-recommendations" class="space-y-3">
+                <!-- System recommendations will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
