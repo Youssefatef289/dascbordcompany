@@ -97,7 +97,7 @@ export const USERS = {
         role: "owner",
         data: {
             id: 'OWN001',
-            name: 'المالك"
+            name: 'المالك'
         }
     }
 };

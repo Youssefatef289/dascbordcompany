@@ -1,6 +1,6 @@
 // Authentication service
 import { USERS } from '../config/constants.js';
-import { saveToLocalStorage, loadFromLocalStorage } from '../utils/storage.js';
+import { saveToLocalStorage, loadFromLocalStorage, removeFromLocalStorage } from '../utils/storage.js';
 
 let currentUser = null;
 
