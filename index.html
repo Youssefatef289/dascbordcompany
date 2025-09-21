@@ -197,6 +197,666 @@
             <div id="area-manager-dashboard" class="hidden space-y-8">
                 <!-- Basic Area Manager Dashboard Content -->
                 <div class="card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <div class="text-2xl font-bold text-gray-900" id="area-region-title">لوحة مدير المنطقة</div>
+                            <div class="text-sm text-gray-500" id="area-region-subtitle">مرحباً، مدير المنطقة</div>
+                        </div>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <button id="refresh-area-manager-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-sync-alt ml-2"></i>تحديث
+                            </button>
+                            <button id="area-export-excel" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                                <i class="fas fa-file-excel ml-2"></i>Excel
+                            </button>
+                            <button id="area-export-pdf" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                                <i class="fas fa-file-pdf ml-2"></i>PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Branch Selection -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div>
+                            <label class="text-sm text-gray-600 mb-2 block">اختر الفرع لعرض تفاصيله:</label>
+                            <select id="area-branch-selection" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="">-- اختر الفرع --</option>
+                                <option value="فرع بنى سويف">فرع بنى سويف</option>
+                                <option value="فرع القاهرة">فرع القاهرة</option>
+                                <option value="فرع الإسكندرية">فرع الإسكندرية</option>
+                                <option value="فرع الجيزة">فرع الجيزة</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-2 block">الفترة الزمنية:</label>
+                            <select id="area-time-filter" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="today">اليوم</option>
+                                <option value="week">هذا الأسبوع</option>
+                                <option value="month">هذا الشهر</option>
+                                <option value="year">هذا العام</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button id="view-branch-details-btn" class="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                <i class="fas fa-eye ml-2"></i>عرض تفاصيل الفرع
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Area KPIs -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                                    <p class="text-blue-100 text-sm">إجمالي الموظفين</p>
+                                    <p class="text-3xl font-bold" id="area-kpi-employees">0</p>
+                        </div>
+                                <i class="fas fa-users text-3xl text-blue-200"></i>
+                        </div>
+                    </div>
+                        <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-green-100 text-sm">إجمالي العمليات</p>
+                                    <p class="text-3xl font-bold" id="area-kpi-operations">0</p>
+                        </div>
+                                <i class="fas fa-chart-bar text-3xl text-green-200"></i>
+                        </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-purple-100 text-sm">إجمالي النقاط</p>
+                                    <p class="text-3xl font-bold" id="area-kpi-points">0</p>
+                        </div>
+                                <i class="fas fa-star text-3xl text-purple-200"></i>
+                        </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-orange-100 text-sm">عدد الفروع</p>
+                                    <p class="text-3xl font-bold" id="area-kpi-branches">0</p>
+                                </div>
+                                <i class="fas fa-building text-3xl text-orange-200"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-red-100 text-sm">متوسط الأداء</p>
+                                    <p class="text-3xl font-bold" id="area-kpi-performance">0%</p>
+                                </div>
+                                <i class="fas fa-chart-pie text-3xl text-red-200"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Branch Details -->
+                <div id="selected-branch-details" class="hidden space-y-6">
+                    <!-- Branch Header -->
+                    <div class="card p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center space-x-4 space-x-reverse">
+                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-building text-3xl text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl font-bold text-gray-800" id="selected-branch-name">اسم الفرع</h2>
+                                    <p class="text-gray-600" id="selected-branch-address">عنوان الفرع</p>
+                                    <p class="text-sm text-gray-500">مدير الفرع: <span id="selected-branch-manager">اسم المدير</span></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 space-x-reverse">
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-500">رقم الهاتف</p>
+                                    <p class="text-lg font-semibold text-gray-800" id="selected-branch-phone">رقم الهاتف</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Branch Statistics -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-green-100 text-sm">موظفو الفرع</p>
+                                    <p class="text-3xl font-bold" id="branch-employees-count">0</p>
+                                </div>
+                                <i class="fas fa-users text-4xl text-green-200"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-blue-100 text-sm">عمليات الفرع</p>
+                                    <p class="text-3xl font-bold" id="branch-operations-count">0</p>
+                                </div>
+                                <i class="fas fa-chart-bar text-4xl text-blue-200"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-purple-100 text-sm">نقاط الفرع</p>
+                                    <p class="text-3xl font-bold" id="branch-points-count">0</p>
+                                </div>
+                                <i class="fas fa-star text-4xl text-purple-200"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-orange-100 text-sm">متوسط الأداء</p>
+                                    <p class="text-3xl font-bold" id="branch-performance">0%</p>
+                                </div>
+                                <i class="fas fa-chart-pie text-4xl text-orange-200"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Branch Operations Chart -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-chart-line text-xl ml-2 text-blue-600"></i> عمليات الفرع
+                        </h3>
+                        <canvas id="branch-operations-chart" width="400" height="200"></canvas>
+                    </div>
+
+                    <!-- Branch Employees List -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-users text-xl ml-2 text-green-600"></i> موظفو الفرع
+                        </h3>
+                        <div id="branch-employees-list" class="space-y-3">
+                            <!-- Branch employees will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Branch Recent Operations -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-history text-xl ml-2 text-purple-600"></i> آخر عمليات الفرع
+                        </h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full bg-white border border-gray-200 rounded-lg">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">الموظف</th>
+                                        <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">النظام</th>
+                                        <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">العمليات</th>
+                                        <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">النقاط</th>
+                                        <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">التاريخ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="branch-recent-operations-tbody">
+                                    <!-- Recent operations will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branch Management -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-building text-2xl ml-2 text-blue-600"></i> إدارة الفروع
+                        </h2>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <button id="add-branch-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                                <i class="fas fa-plus ml-2"></i>إضافة فرع
+                            </button>
+                            <button id="refresh-branches-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-sync-alt ml-2"></i>تحديث
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Add Branch Form -->
+                    <div id="add-branch-form" class="hidden mb-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-plus-circle text-xl ml-2 text-blue-600"></i> إضافة فرع جديد
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-sm text-gray-600 mb-2 block font-medium">اسم الفرع *</label>
+                                <input type="text" id="area-branch-name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" placeholder="أدخل اسم الفرع">
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-600 mb-2 block font-medium">عنوان الفرع *</label>
+                                <input type="text" id="area-branch-address" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" placeholder="أدخل عنوان الفرع">
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-600 mb-2 block font-medium">مدير الفرع *</label>
+                                <input type="text" id="area-branch-manager" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" placeholder="أدخل اسم مدير الفرع">
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-600 mb-2 block font-medium">رقم الهاتف *</label>
+                                <input type="text" id="area-branch-phone" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" placeholder="أدخل رقم الهاتف">
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 space-x-reverse mt-6">
+                            <button id="area-save-branch-btn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center">
+                                <i class="fas fa-save ml-2"></i>حفظ الفرع
+                            </button>
+                            <button id="area-cancel-branch-btn" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center">
+                                <i class="fas fa-times ml-2"></i>إلغاء
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Branches List -->
+                    <div id="branches-list" class="space-y-4">
+                        <!-- Branches will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Branch Notifications and Alerts -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-bell text-2xl ml-2 text-yellow-600"></i> تنبيهات وإشعارات الفروع
+                        </h2>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <button id="refresh-branch-notifications-btn" class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700">
+                                <i class="fas fa-sync-alt ml-2"></i>تحديث
+                            </button>
+                            <button id="view-all-branch-notifications-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-eye ml-2"></i>عرض الكل
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Branch Notifications Summary -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-yellow-100 text-sm">إجمالي التنبيهات</p>
+                                    <p class="text-2xl font-bold" id="total-branch-notifications">0</p>
+                                </div>
+                                <i class="fas fa-bell text-3xl text-yellow-200"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-red-100 text-sm">التنبيهات العاجلة</p>
+                                    <p class="text-2xl font-bold" id="urgent-branch-notifications">0</p>
+                                </div>
+                                <i class="fas fa-exclamation-triangle text-3xl text-red-200"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-blue-100 text-sm">المرفقات المعلقة</p>
+                                    <p class="text-2xl font-bold" id="pending-branch-attachments">0</p>
+                                </div>
+                                <i class="fas fa-paperclip text-3xl text-blue-200"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-green-100 text-sm">المهام المكتملة</p>
+                                    <p class="text-2xl font-bold" id="completed-branch-tasks">0</p>
+                                </div>
+                                <i class="fas fa-check-circle text-3xl text-green-200"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Branch Notifications List -->
+                    <div id="branch-notifications-list" class="space-y-3">
+                        <!-- Branch notifications will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Branch Operations Details -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-chart-line text-2xl ml-2 text-green-600"></i> تفاصيل عمليات الفروع
+                        </h2>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <select id="branch-operations-filter" class="p-2 border rounded-lg">
+                                <option value="">جميع الفروع</option>
+                            </select>
+                            <button id="refresh-branch-operations-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                                <i class="fas fa-sync-alt ml-2"></i>تحديث
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Branch Operations Chart -->
+                    <div class="mb-6">
+                        <canvas id="branch-operations-chart" width="400" height="200"></canvas>
+                    </div>
+
+                    <!-- Branch Operations Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full bg-white border border-gray-200 rounded-lg">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">الفرع</th>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">العمليات</th>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">النقاط</th>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">الأنظمة</th>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">الأداء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="branch-operations-tbody">
+                                <!-- Branch operations will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Detailed Branch Operations View -->
+                    <div id="branch-operations-details" class="mt-8">
+                        <!-- Detailed operations will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Branch Employee Performance -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-users text-2xl ml-2 text-purple-600"></i> أداء موظفي الفروع
+                        </h2>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <select id="branch-employee-performance-filter" class="p-2 border rounded-lg">
+                                <option value="">جميع الفروع</option>
+                            </select>
+                            <button id="refresh-branch-employee-performance-btn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                                <i class="fas fa-sync-alt ml-2"></i>تحديث
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Branch Employee Performance Cards -->
+                    <div id="branch-employee-performance-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                        <!-- Branch employee performance cards will be loaded here -->
+                    </div>
+
+                    <!-- Branch Employee Performance Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full bg-white border border-gray-200 rounded-lg">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">الفرع</th>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">الموظف</th>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">العمليات</th>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">النقاط</th>
+                                    <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">الأداء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="branch-employee-performance-tbody">
+                                <!-- Branch employee performance will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- All Branches Overview -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-building text-2xl ml-2 text-indigo-600"></i> جميع الفروع
+                        </h2>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <button id="refresh-all-branches-btn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+                                <i class="fas fa-sync-alt ml-2"></i>تحديث
+                            </button>
+                            <button id="view-branches-grid-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                                <i class="fas fa-th ml-2"></i>عرض شبكي
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Branches Grid -->
+                    <div id="all-branches-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- All branches will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Area Branches Comparison -->
+                <div class="card p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">مقارنة الفروع</h2>
+                    <div id="area-branches-comparison" class="space-y-4">
+                        <!-- Branches comparison will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Filters Row -->
+                <div class="card p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">مستوى الأداء</label>
+                            <select id="area-filter-performance" class="w-full p-3 border rounded-lg">
+                                <option value="all">جميع المستويات</option>
+                                <option value="top">الأعلى أداءً</option>
+                                <option value="risk">بحاجة متابعة</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">النظام</label>
+                            <select id="area-filter-system" class="w-full p-3 border rounded-lg">
+                                <option value="all">جميع الأنظمة</option>
+                                <option value="paytax">بايتانس</option>
+                                <option value="h4g">H4G</option>
+                                <option value="dcl">DCL</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">الفرع</label>
+                            <select id="area-filter-branch" class="w-full p-3 border rounded-lg">
+                                <option value="all">جميع الفروع</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">الفترة الزمنية</label>
+                            <select id="area-filter-period" class="w-full p-3 border rounded-lg">
+                                <option value="current">الشهر الحالي</option>
+                                <option value="last">الشهر السابق</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employee Selection and Details -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-user-chart text-2xl ml-2 text-blue-600"></i> تفاصيل أداء الموظف
+                        </h2>
+                        <div class="text-sm text-gray-500">اختر موظفاً لعرض بياناته التفصيلية</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">اختر الموظف</label>
+                            <select id="area-employee-select" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="">-- اختر موظف --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">الفترة</label>
+                            <select id="area-employee-period" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="today">اليوم</option>
+                                <option value="week">هذا الأسبوع</option>
+                                <option value="month">هذا الشهر</option>
+                                <option value="all">الكل</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600 mb-1">النظام</label>
+                            <select id="area-employee-system" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="all">جميع الأنظمة</option>
+                                <option value="أورنج كاش">أورنج كاش</option>
+                                <option value="بايتاكس">بايتاكس</option>
+                                <option value="DCL">DCL</option>
+                                <option value="H4G">H4G</option>
+                                <option value="ديقنس">ديقنس</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="area-employee-details" class="hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                            <!-- Employee Performance Stats -->
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h3 class="font-semibold text-gray-800 mb-3">إحصائيات الأداء</h3>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-blue-600" id="area-emp-total-ops">0</div>
+                                        <div class="text-sm text-gray-600">إجمالي العمليات</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-green-600" id="area-emp-total-points">0</div>
+                                        <div class="text-sm text-gray-600">إجمالي النقاط</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-purple-600" id="area-emp-avg-daily">0</div>
+                                        <div class="text-sm text-gray-600">متوسط يومي</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-2xl font-bold text-orange-600" id="area-emp-systems-used">0</div>
+                                        <div class="text-sm text-gray-600">أنظمة مستخدمة</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Employee Profile Info -->
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h3 class="font-semibold text-gray-800 mb-3">معلومات الموظف</h3>
+                                <div id="area-emp-profile-info" class="space-y-2">
+                                    <!-- Profile info will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operations Table -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-800 mb-3">العمليات المسجلة</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-right font-semibold text-gray-700">التاريخ</th>
+                                            <th class="px-4 py-3 text-right font-semibold text-gray-700">الوقت</th>
+                                            <th class="px-4 py-3 text-right font-semibold text-gray-700">النظام</th>
+                                            <th class="px-4 py-3 text-right font-semibold text-gray-700">العمليات</th>
+                                            <th class="px-4 py-3 text-right font-semibold text-gray-700">النقاط</th>
+                                            <th class="px-4 py-3 text-right font-semibold text-gray-700">الملاحظات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="area-emp-operations-table" class="divide-y divide-gray-200">
+                                        <!-- Operations will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="area-emp-no-operations" class="text-center py-8 text-gray-500 hidden">
+                                <i class="fas fa-inbox text-4xl mb-2"></i>
+                                <p>لا توجد عمليات مسجلة</p>
+                            </div>
+                        </div>
+
+                        <!-- Performance Charts -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-3">توزيع العمليات حسب النظام</h3>
+                                <div id="area-emp-systems-breakdown" class="space-y-2">
+                                    <!-- Systems breakdown will be loaded here -->
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-3">الأداء اليومي</h3>
+                                <div id="area-emp-daily-performance" class="space-y-2">
+                                    <!-- Daily performance will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branches Comparison List -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800">مقارنة أداء الفروع</h2>
+                        <div class="text-sm text-gray-500">يتم تحديثها تلقائيًا</div>
+                    </div>
+                    <div id="area-branches-list" class="space-y-4"></div>
+                </div>
+
+                <!-- Payroll Analysis -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-dollar-sign text-2xl ml-2 text-emerald-600"></i> تحليل الرواتب والحوافز
+                        </h2>
+                        <div class="text-sm text-gray-500">تجميعي على مستوى المنطقة</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="card p-4">
+                            <div class="text-sm text-gray-500">إجمالي التكاليف</div>
+                            <div id="payroll-total" class="text-2xl font-extrabold text-gray-900">--</div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="text-sm text-gray-500">الرواتب الثابتة</div>
+                            <div id="payroll-fixed" class="text-2xl font-extrabold text-gray-900">--</div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="text-sm text-gray-500">الرواتب المتغيرة</div>
+                            <div id="payroll-variable" class="text-2xl font-extrabold text-gray-900">--</div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="text-sm text-gray-500">الحوافز والمكافآت</div>
+                            <div id="payroll-bonus" class="text-2xl font-extrabold text-gray-900">--</div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="text-sm text-gray-500">نسبة المتغير للثابت</div>
+                            <div id="payroll-ratio" class="text-2xl font-extrabold text-gray-900">--%</div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="text-sm text-gray-500">مؤشر الأداء الحالي</div>
+                            <div id="payroll-index" class="text-2xl font-extrabold text-gray-900">--</div>
+                        </div>
+                    </div>
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">تنبيهات التكاليف</h3>
+                            <div id="payroll-alerts" class="space-y-3"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">توصيات التحسين</h3>
+                            <ul id="payroll-recos" class="list-disc pr-5 space-y-1 text-sm text-gray-700"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Costs Comparison Between Branches -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-scale-balanced text-2xl ml-2 text-rose-600"></i> مقارنة التكاليف بين الفروع
+                        </h2>
+                        <div class="text-sm text-gray-500">التكاليف مقابل الإيرادات ونسبة الكلفة</div>
+                    </div>
+                    <div id="area-costs-compare" class="space-y-4"></div>
+                </div>
+
+                <!-- Alerts + Systems breakdown sample -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">تنبيهات وتوصيات</h2>
+                        <div id="area-alerts" class="space-y-3"></div>
+                    </div>
+                    <div class="card p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">تأثير الأنظمة على الإيرادات</h2>
+                        <div id="area-systems" class="space-y-3"></div>
+                    </div>
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">لوحة مدير المنطقة</h2>
                     <p class="text-gray-600">مرحباً بك في لوحة مدير المنطقة. سيتم تحميل المحتوى الكامل قريباً...</p>
                 </div>
