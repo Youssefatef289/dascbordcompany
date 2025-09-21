@@ -1,0 +1,55 @@
+   body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .progress-bar {
+            height: 10px;
+            border-radius: 9999px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .task-bar {
+            height: 10px;
+            border-radius: 9999px;
+        }
+
+        /* subtle animated gradient chips/badges */
+        .chip-gradient {
+            background: linear-gradient(90deg, rgba(99,102,241,0.08), rgba(16,185,129,0.08));
+        }
+
+        /* simple modal helpers */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+        }
+        .modal {
+            position: relative;
+            margin-top: 5vh;
+            padding: 1.5rem;
+        }
+
+        .task-drawer {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 380px;
+            border-radius: 1rem 0 0 1rem;
+        }
